@@ -3,10 +3,11 @@ package com.yaoxinqi.dao;
 import com.yaoxinqi.domain.User;
 import org.apache.ibatis.annotations.Select;
 
-//xml方式
 import java.util.List;
 
-public interface UserMapper {
+//注解方式
+public interface UserMapper2 {
 
+    @Select("select * from user;")
     List<User> findAll();
 }

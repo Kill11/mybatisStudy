@@ -9,7 +9,7 @@
         <environment id="mysql">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://192.168.2.102:3306/eesy"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
@@ -19,5 +19,7 @@
     <!--指定映射配置文件的位置，每个dao独立的配置文件-->
     <mappers>
         <mapper resource="com/yaoxinqi/dao/UserMapper.xml"></mapper>
+        <mapper class="com.yaoxinqi.dao.UserMapper2"></mapper>
+        <mapper resource="com/yaoxinqi/dao/UserMapper3.xml"></mapper>
     </mappers>
 </configuration>
