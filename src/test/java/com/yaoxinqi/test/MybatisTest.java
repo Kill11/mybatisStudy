@@ -1,57 +1,62 @@
 package com.yaoxinqi.test;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.yaoxinqi.dao.UserMapper;
 import com.yaoxinqi.dao.UserMapper2;
 import com.yaoxinqi.dao.UserMapper3;
 import com.yaoxinqi.dao.impl.UserMapper3Impl;
+import com.yaoxinqi.domain.QuaryVo;
 import com.yaoxinqi.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.ParameterizedType;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class MybatisTest {
-    @Test
-    public void test1() throws IOException {
+    InputStream in;
+    SqlSession session;
+    UserMapper userMapper;
+
+    @BeforeMethod
+    public void init() throws IOException{
         //读取配置
-        InputStream in = Resources.getResourceAsStream("SqlMapConfig.xml");
+        in = Resources.getResourceAsStream("SqlMapConfig.xml");
         //创建session工厂
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
-        SqlSession session = factory.openSession();
+        session = factory.openSession();
+    }
+
+    @Test
+    public void testFindAll(){
+
         //动态代理，给出代理类
-        UserMapper userMapper = session.getMapper(UserMapper.class);
+        userMapper = session.getMapper(UserMapper.class);
         List<User> users = userMapper.findAll();
         for(User user:users){
             System.out.println(user);
         }
-        session.close();
-        in.close();
     }
 
     @Test
     public void test2() throws IOException {
-        //读取配置
-        InputStream in = Resources.getResourceAsStream("SqlMapConfig.xml");
-        //创建session工厂
-        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-        SqlSessionFactory factory = builder.build(in);
-        SqlSession session = factory.openSession();
         //动态代理，给出代理类
         UserMapper2 userMapper2 = session.getMapper(UserMapper2.class);
         List<User> users = userMapper2.findAll();
         for(User user:users){
             System.out.println(user);
         }
-        session.close();
-        in.close();
     }
 
     @Test
@@ -92,4 +97,77 @@ public class MybatisTest {
 //        System.out.println("直接获取到的："+user.getId());
 //        System.out.println("获取到的get方法读到的："+readMethod.invoke(user));
 //    }
+
+    @Test
+    public void testSaveUser(){
+        userMapper = session.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUserName("呀哈哈");
+        user.setUserBirthday(new Date());
+        user.setUserAddress("中国");
+        user.setUserSex("男");
+        userMapper.saveUser(user);
+        System.out.println(user.getUserId());
+    }
+
+    @Test
+    public void testUpdateUser(){
+        userMapper = session.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUserId(54);
+        user.setUserName("呀哈哈");
+        user.setUserBirthday(new Date());
+        user.setUserAddress("中国");
+        user.setUserSex("男");
+        userMapper.updateUser(user);
+    }
+
+    @Test
+    public void testDeleteUser(){
+        userMapper = session.getMapper(UserMapper.class);
+        userMapper.deleteUser(54);
+    }
+
+    @Test
+    public void testFindById(){
+        userMapper = session.getMapper(UserMapper.class);
+        User user = userMapper.findById(48);
+        System.out.println(user);
+    }
+
+    @Test
+    public void testFindByName(){
+        userMapper = session.getMapper(UserMapper.class);
+        List<User> users = userMapper.findByName("%王%");
+        for (User user:users){
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testFindTotal(){
+        userMapper = session.getMapper(UserMapper.class);
+        System.out.println(userMapper.findTotal());
+    }
+
+    @Test
+    public void testFindByQuaryVo(){
+        userMapper = session.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUserSex("男");
+        user.setUserName("%王%");
+        QuaryVo quaryVo = new QuaryVo(user);
+        List<User> users = userMapper.findByQuaryVo(quaryVo);
+        for(User eacheUser:users){
+            System.out.println(eacheUser);
+        }
+    }
+
+
+    @AfterMethod
+    public void destroy() throws IOException{
+        session.commit();
+        session.close();
+        in.close();
+    }
 }

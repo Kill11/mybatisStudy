@@ -5,6 +5,7 @@ import com.yaoxinqi.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class UserMapper3Impl implements UserMapper3{
