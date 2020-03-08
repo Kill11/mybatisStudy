@@ -107,7 +107,7 @@ public class MybatisTest {
         user.setUserAddress("中国");
         user.setUserSex("男");
         userMapper.saveUser(user);
-        System.out.println(user.getUserId());
+        System.out.println("新增的ID："+user.getUserId());
     }
 
     @Test

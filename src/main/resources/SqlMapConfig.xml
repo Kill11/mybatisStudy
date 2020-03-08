@@ -3,16 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
+
 <configuration>
+    <properties resource="MySql.properties"></properties>
     <!--配置环境-->
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://192.168.2.102:3306/eesy"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -21,5 +23,6 @@
         <mapper resource="com/yaoxinqi/dao/UserMapper.xml"></mapper>
         <mapper class="com.yaoxinqi.dao.UserMapper2"></mapper>
         <mapper resource="com/yaoxinqi/dao/UserMapper3.xml"></mapper>
+<!--        <package name="com.yaoxinqi.dao"/>-->
     </mappers>
 </configuration>

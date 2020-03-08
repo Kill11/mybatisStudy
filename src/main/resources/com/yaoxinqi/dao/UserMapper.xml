@@ -16,10 +16,16 @@
         select * from user
     </select>
 
-    <insert id="saveUser" parameterType="com.yaoxinqi.domain.User">
-        <selectKey keyProperty="userId" keyColumn="id" order="AFTER" resultType="INT">
-            select last_insert_id();
-        </selectKey>
+    <!--用selectKey在插入后运行语句获取id-->
+<!--    <insert id="saveUser" parameterType="com.yaoxinqi.domain.User">-->
+<!--        <selectKey keyProperty="userId" keyColumn="id" order="AFTER" resultType="INT">-->
+<!--            select last_insert_id();-->
+<!--        </selectKey>-->
+<!--        insert into user(username,address,sex,birthday)values(#{userName},#{userAddress},#{userSex},#{userBirthday})-->
+<!--    </insert>-->
+
+    <!--使用jdbc的特性获取id,jdbc的useGeneratedKeys方法，取出的值映射到类属性userId-->
+    <insert id="saveUser" parameterType="com.yaoxinqi.domain.User" useGeneratedKeys="true" keyProperty="userId">
         insert into user(username,address,sex,birthday)values(#{userName},#{userAddress},#{userSex},#{userBirthday})
     </insert>
 
