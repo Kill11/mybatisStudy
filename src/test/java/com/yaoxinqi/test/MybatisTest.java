@@ -154,7 +154,7 @@ public class MybatisTest {
     public void testFindByQuaryVo(){
         userMapper = session.getMapper(UserMapper.class);
         User user = new User();
-        user.setUserSex("男");
+//        user.setUserSex("男");
         user.setUserName("%王%");
         QuaryVo quaryVo = new QuaryVo(user);
         List<User> users = userMapper.findByQuaryVo(quaryVo);

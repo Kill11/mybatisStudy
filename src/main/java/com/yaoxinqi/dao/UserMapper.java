@@ -23,6 +23,4 @@ public interface UserMapper {
     int findTotal();
 
     List<User> findByQuaryVo(QuaryVo quaryVo);
-
-
 }

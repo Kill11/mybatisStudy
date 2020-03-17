@@ -11,18 +11,18 @@
         <result property="userSex" column="sex"></result>
         <result property="userBirthday" column="birthday"></result>
     </resultMap>
-    
+
     <select id="findAll" resultMap="userMap">
         select * from user
     </select>
 
     <!--用selectKey在插入后运行语句获取id-->
-<!--    <insert id="saveUser" parameterType="com.yaoxinqi.domain.User">-->
-<!--        <selectKey keyProperty="userId" keyColumn="id" order="AFTER" resultType="INT">-->
-<!--            select last_insert_id();-->
-<!--        </selectKey>-->
-<!--        insert into user(username,address,sex,birthday)values(#{userName},#{userAddress},#{userSex},#{userBirthday})-->
-<!--    </insert>-->
+    <!--    <insert id="saveUser" parameterType="com.yaoxinqi.domain.User">-->
+    <!--        <selectKey keyProperty="userId" keyColumn="id" order="AFTER" resultType="INT">-->
+    <!--            select last_insert_id();-->
+    <!--        </selectKey>-->
+    <!--        insert into user(username,address,sex,birthday)values(#{userName},#{userAddress},#{userSex},#{userBirthday})-->
+    <!--    </insert>-->
 
     <!--使用jdbc的特性获取id,jdbc的useGeneratedKeys方法，取出的值映射到类属性userId-->
     <insert id="saveUser" parameterType="com.yaoxinqi.domain.User" useGeneratedKeys="true" keyProperty="userId">
@@ -50,6 +50,13 @@
     </select>
 
     <select id="findByQuaryVo" parameterType="com.yaoxinqi.domain.QuaryVo" resultMap="userMap">
-        select * from user where username like #{user.userName} and sex = #{user.userSex}
+        select * from user where 1=1
+        <if test="user.userName != null and user.userName != ''">
+            and username like #{user.userName}
+        </if>
+        <if test="user.userSex != null and user.userSex != ''">
+            and sex = #{user.userSex}
+        </if>
+
     </select>
 </mapper>
