@@ -154,10 +154,25 @@ public class MybatisTest {
     public void testFindByQuaryVo(){
         userMapper = session.getMapper(UserMapper.class);
         User user = new User();
-//        user.setUserSex("男");
-        user.setUserName("%王%");
-        QuaryVo quaryVo = new QuaryVo(user);
+        user.setUserSex("男");
+//        user.setUserName("%王%");
+        QuaryVo quaryVo = new QuaryVo();
+        quaryVo.setUser(user);
         List<User> users = userMapper.findByQuaryVo(quaryVo);
+        for(User eacheUser:users){
+            System.out.println(eacheUser);
+        }
+    }
+
+    @Test
+    public void testFindByInIds(){
+        userMapper = session.getMapper(UserMapper.class);
+        QuaryVo quaryVo = new QuaryVo();
+        List<Integer> arr= new ArrayList<Integer>();
+        arr.add(41);
+        arr.add(42);
+        quaryVo.setIds(arr);
+        List<User> users = userMapper.findByInIds(quaryVo);
         for(User eacheUser:users){
             System.out.println(eacheUser);
         }
