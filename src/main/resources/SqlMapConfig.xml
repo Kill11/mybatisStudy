@@ -5,8 +5,12 @@
 
 
 <configuration>
+
     <properties resource="MySql.properties"></properties>
     <!--配置环境-->
+    <typeAliases>
+        <package name="com.yaoxinqi.domain"/>
+    </typeAliases>
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"></transactionManager>
@@ -20,9 +24,10 @@
     </environments>
     <!--指定映射配置文件的位置，每个dao独立的配置文件-->
     <mappers>
-        <mapper resource="com/yaoxinqi/dao/UserMapper.xml"></mapper>
-        <mapper class="com.yaoxinqi.dao.UserMapper2"></mapper>
-        <mapper resource="com/yaoxinqi/dao/UserMapper3.xml"></mapper>
-<!--        <package name="com.yaoxinqi.dao"/>-->
+<!--        <mapper resource="com/yaoxinqi/dao/UserMapper.xml"></mapper>-->
+<!--        <mapper class="com.yaoxinqi.dao.UserMapper2"></mapper>-->
+<!--        <mapper resource="com/yaoxinqi/dao/UserMapper3.xml"></mapper>-->
+        <package name="com.yaoxinqi.dao"/>
+<!--        <mapper resource="com/yaoxinqi/dao/AccountMapper.xml"></mapper>-->
     </mappers>
 </configuration>

@@ -1,10 +1,12 @@
 package com.yaoxinqi.test;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import com.yaoxinqi.dao.AccountMapper;
 import com.yaoxinqi.dao.UserMapper;
 import com.yaoxinqi.dao.UserMapper2;
 import com.yaoxinqi.dao.UserMapper3;
 import com.yaoxinqi.dao.impl.UserMapper3Impl;
+import com.yaoxinqi.domain.Account;
 import com.yaoxinqi.domain.QuaryVo;
 import com.yaoxinqi.domain.User;
 import org.apache.ibatis.io.Resources;
@@ -23,7 +25,7 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.SQLOutput;
 import java.util.*;
 
-public class MybatisTest {
+public class UserTest {
     InputStream in;
     SqlSession session;
     UserMapper userMapper;
@@ -177,7 +179,6 @@ public class MybatisTest {
             System.out.println(eacheUser);
         }
     }
-
 
     @AfterMethod
     public void destroy() throws IOException{

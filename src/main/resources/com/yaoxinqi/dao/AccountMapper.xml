@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yaoxinqi.dao.AccountMapper">
+
+    <resultMap id="accountMap" type="com.yaoxinqi.domain.Account">
+        <id property="accountId" column="aid"></id>
+        <result property="userId" column="uid"></result>
+        <result property="money" column="money"></result>
+        <association property="user" column="uid" javaType="User">
+            <id property="userId" column="id"></id>
+            <result property="userName" column="username"></result>
+            <result property="userAddress" column="address"></result>
+            <result property="userSex" column="sex"></result>
+            <result property="userBirthday" column="birthday"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="accountUserMap" type="com.yaoxinqi.domain.AccountUser">
+        <id property="accountId" column="id"></id>
+        <result property="userId" column="uid"></result>
+        <result property="userName" column="username"></result>
+        <result property="userAddress" column="address"></result>
+    </resultMap>
+
+    <select id="findAll" resultMap="accountMap">
+        select u.*,a.id as aid,a.uid,a.money from account a,user u where u.id = a.uid
+    </select>
+
+    <select id="findAllAccount" resultMap="accountUserMap">
+        select a.*,u.username,u.address from account a, user u where u.id = a.uid;
+    </select>
+</mapper>
