@@ -22,9 +22,7 @@ public class AccountTest {
 
     @BeforeMethod
     public void init() throws IOException {
-        //读取配置
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
-        //创建session工厂
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
         session = factory.openSession();
@@ -39,8 +37,6 @@ public class AccountTest {
 
     @Test
     public void testFindAll(){
-
-        //动态代理，给出代理类
         accountMapper = session.getMapper(AccountMapper.class);
         List<Account> accounts = accountMapper.findAll();
         for(Account account:accounts){
@@ -50,8 +46,6 @@ public class AccountTest {
 
     @Test
     public void testFindAllAccount(){
-
-        //动态代理，给出代理类
         accountMapper = session.getMapper(AccountMapper.class);
         List<AccountUser> accountusers = accountMapper.findAllAccount();
         for(AccountUser accountUser:accountusers){

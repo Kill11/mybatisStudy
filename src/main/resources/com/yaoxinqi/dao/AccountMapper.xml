@@ -5,11 +5,11 @@
 
 <mapper namespace="com.yaoxinqi.dao.AccountMapper">
 
-    <resultMap id="accountMap" type="com.yaoxinqi.domain.Account">
+    <resultMap id="accountMap" type="Account">
         <id property="accountId" column="aid"></id>
         <result property="userId" column="uid"></result>
         <result property="money" column="money"></result>
-        <association property="user" column="uid" javaType="User">
+        <association property="user" column="uid" javaType="User"> <!--这里的column去掉也可/0428-->
             <id property="userId" column="id"></id>
             <result property="userName" column="username"></result>
             <result property="userAddress" column="address"></result>
@@ -18,7 +18,7 @@
         </association>
     </resultMap>
 
-    <resultMap id="accountUserMap" type="com.yaoxinqi.domain.AccountUser">
+    <resultMap id="accountUserMap" type="AccountUser">
         <id property="accountId" column="id"></id>
         <result property="userId" column="uid"></result>
         <result property="userName" column="username"></result>

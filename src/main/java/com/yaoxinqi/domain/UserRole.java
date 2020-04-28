@@ -1,27 +1,28 @@
 package com.yaoxinqi.domain;
 
-import org.apache.ibatis.annotations.Select;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User implements Serializable {
+public class UserRole implements Serializable {
 
     private Integer userId;
     private String userName;
     private Date userBirthday;
     private String userSex;
     private String userAddress;
-    //一对多（主对从）主表实体要包含从表实体的集合
-    private List<Account> accounts;
+    private List<Role> roles;
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userBirthday=" + userBirthday +
+                ", userSex='" + userSex + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 
     public Integer getUserId() {
@@ -64,15 +65,11 @@ public class User implements Serializable {
         this.userAddress = userAddress;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userBirthday=" + userBirthday +
-                ", userSex='" + userSex + '\'' +
-                ", userAddress='" + userAddress + '\'' +
-                ", accounts=" + accounts +
-                '}';
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
