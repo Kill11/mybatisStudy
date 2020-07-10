@@ -10,4 +10,6 @@ public interface UserRoleMapper {
     public List<Role> findAllRole();
 
     public List<UserRole> findAllUser();
+
+    public List<Role> findRoleByUid(Integer uid);
 }

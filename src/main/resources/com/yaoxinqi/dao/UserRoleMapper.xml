@@ -23,7 +23,7 @@
         <result column="birthday" property="userBirthday"></result>
         <result column="sex" property="userSex"></result>
         <result column="address" property="userAddress"></result>
-        <collection property="roles" ofType="Role">
+        <collection property="roles" ofType="Role" select="com.yaoxinqi.dao.UserRoleMapper.findRoleByUid" column="id">
             <id property="userRoleId" column="rid"></id>
             <result property="roleName" column="ROLE_NAME"></result>
             <result property="roleDesc" column="ROLE_DESC"></result>
@@ -37,6 +37,11 @@
     </select>
 
     <select id="findAllUser" resultMap="UserRoleMap">
-        select * from user u left join user_role ur on u.id=ur.UID left join role r on ur.RID=r.ID
+        select * from user u
+            <!--left join user_role ur on u.id=ur.UID left join role r on ur.RID=r.ID-->
+    </select>
+
+    <select id="findRoleByUid" resultMap="RoleMap" parameterType="INT">
+        select u.RID as rid,r.ROLE_NAME,r.ROLE_DESC from user_role u left join role r on u.RID = r.ID where u.UID = #{id}
     </select>
 </mapper>

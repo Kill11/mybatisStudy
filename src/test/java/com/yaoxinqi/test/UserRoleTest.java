@@ -58,6 +58,17 @@ public class UserRoleTest {
         }
     }
 
+    @Test
+    public void testFindRoleByUid(){
+        //动态代理，给出代理类
+        userRoleMapper = session.getMapper(UserRoleMapper.class);
+        List<Role> Roles = userRoleMapper.findRoleByUid(41);
+        for(Role Role:Roles){
+            System.out.println(Role);
+        }
+    }
+
+
     @AfterMethod
     public void destroy() throws IOException{
         session.commit();
