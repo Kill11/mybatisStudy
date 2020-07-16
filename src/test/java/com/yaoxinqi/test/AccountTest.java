@@ -45,6 +45,15 @@ public class AccountTest {
     }
 
     @Test
+    public void testFindAccountByUserId(){
+        accountMapper = session.getMapper(AccountMapper.class);
+        List<Account> accounts = accountMapper.findAccountByUserId(41);
+        for(Account account:accounts){
+            System.out.println(account);
+        }
+    }
+
+    @Test
     public void testFindAllAccount(){
         accountMapper = session.getMapper(AccountMapper.class);
         List<AccountUser> accountusers = accountMapper.findAllAccount();

@@ -32,4 +32,8 @@
     <select id="findAllAccount" resultMap="accountUserMap">
         select a.*,u.username,u.address from account a, user u where u.id = a.uid;
     </select>
+
+    <select id="findAccountByUserId" parameterType="INT" resultMap="accountMap">
+        select ID as aid,UID,MONEY from account where uid = #{id}
+    </select>
 </mapper>
